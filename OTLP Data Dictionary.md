@@ -57,3 +57,85 @@ Table: **offers**
 | valid_from      | DATE         | No       | Offer start date                                        |
 | valid_to        | DATE         | No       | Offer end date                                          |
 | is_active       | TINYINT(1)   | No       | 1 = currently active                                    |
+
+Table: **delivery_partners**
+
+| Column       | Type         | Nullable | Description               |
+| ------------ | ------------ | -------- | ------------------------- |
+| partner_id   | INT (PK, AI) | No       | Unique partner identifier |
+| full_name    | VARCHAR(120) | No       | Partner's full name       |
+| phone        | VARCHAR(20)  | No       | Contact number            |
+| city         | VARCHAR(60)  | No       | Assigned city             |
+| vehicle_type | VARCHAR(30)  | No       | BIKE / BICYCLE / SCOOTER  |
+| joined_at    | DATETIME     | No       | Onboarding date           |
+| is_active    | TINYINT(1)   | No       | 1 = currently active      |
+
+Table: **orders**
+
+| Column               | Type          | Nullable | Description                                                               |
+| -------------------- | ------------- | -------- | ------------------------------------------------------------------------- |
+| order_id             | INT (PK, AI)  | No       | Unique order identifier                                                   |
+| customer_id          | INT (FK)      | No       | Placing customer                                                          |
+| restaurant_id        | INT (FK)      | No       | Restaurant fulfilling the order                                           |
+| offer_id             | INT (FK)      | Yes      | Applied offer (NULL = no offer)                                           |
+| order_status         | VARCHAR(20)   | No       | PLACED / CONFIRMED / PREPARING / OUT_FOR_DELIVERY / DELIVERED / CANCELLED |
+| ordered_at           | DATETIME      | No       | Order placement timestamp                                                 |
+| confirmed_at         | DATETIME      | Yes      | Restaurant confirmation timestamp                                         |
+| ready_at             | DATETIME      | Yes      | Food ready timestamp                                                      |
+| subtotal             | DECIMAL(10,2) | No       | Sum of item prices before discount                                        |
+| discount_amount      | DECIMAL(10,2) | No       | Total discount applied                                                    |
+| delivery_fee         | DECIMAL(8,2)  | No       | Platform delivery charge                                                  |
+| total_amount         | DECIMAL(10,2) | No       | subtotal − discount + delivery_fee                                        |
+| special_instructions | VARCHAR(300)  | Yes      | Customer notes                                                            |
+
+Table: **order_items**
+
+| Column        | Type          | Nullable | Description                     |
+| ------------- | ------------- | -------- | ------------------------------- |
+| order_item_id | INT (PK, AI)  | No       | Unique line-item identifier     |
+| order_id      | INT (FK)      | No       | Parent order                    |
+| item_id       | INT (FK)      | No       | Menu item ordered               |
+| quantity      | INT           | No       | Number of units                 |
+| unit_price    | DECIMAL(8,2)  | No       | Price per unit at time of order |
+| item_total    | DECIMAL(10,2) | No       | quantity × unit_price           |
+
+Table: **payments**
+| Column          | Type          | Nullable | Description                                   |
+| --------------- | ------------- | -------- | --------------------------------------------- |
+| payment_id      | INT (PK, AI)  | No       | Unique payment record                         |
+| order_id        | INT (FK)      | No       | Corresponding order                           |
+| payment_method  | VARCHAR(30)   | No       | UPI / CREDIT_CARD / DEBIT_CARD / COD / WALLET |
+| payment_status  | VARCHAR(20)   | No       | SUCCESS / FAILED / PENDING / REFUNDED         |
+| amount          | DECIMAL(10,2) | No       | Amount charged                                |
+| paid_at         | DATETIME      | Yes      | Payment completion timestamp                  |
+| transaction_ref | VARCHAR(60)   | Yes      | Gateway reference number                      |
+
+
+
+Table: **deliveries**
+
+| Column          | Type         | Nullable | Description                               |
+| --------------- | ------------ | -------- | ----------------------------------------- |
+| delivery_id     | INT (PK, AI) | No       | Unique delivery record                    |
+| order_id        | INT (FK)     | No       | Associated order                          |
+| partner_id      | INT (FK)     | No       | Assigned delivery partner                 |
+| picked_up_at    | DATETIME     | Yes      | Pickup timestamp                          |
+| delivered_at    | DATETIME     | Yes      | Delivery timestamp                        |
+| delivery_status | VARCHAR(20)  | No       | ASSIGNED / PICKED_UP / DELIVERED / FAILED |
+| distance_km     | DECIMAL(5,2) | Yes      | Delivery distance in kilometres           |
+| delivery_rating | TINYINT      | Yes      | Customer rating for delivery (1–5)        |
+
+
+Table: **ratings**
+
+| Column          | Type         | Nullable | Description                     |
+| --------------- | ------------ | -------- | ------------------------------- |
+| rating_id       | INT (PK, AI) | No       | Unique rating record            |
+| order_id        | INT (FK)     | No       | Rated order                     |
+| customer_id     | INT (FK)     | No       | Rating customer                 |
+| restaurant_id   | INT (FK)     | No       | Rated restaurant                |
+| food_rating     | TINYINT      | No       | Food quality rating (1–5)       |
+| delivery_rating | TINYINT      | Yes      | Delivery rating (1–5), nullable |
+| review_text     | VARCHAR(500) | Yes      | Written review                  |
+| rated_at        | DATETIME     | No       | Rating submission timestamp     |
+
