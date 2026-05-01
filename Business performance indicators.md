@@ -1,4 +1,4 @@
-# 🍽️ Food Delivery Analytics SQL Project
+
 
 ## 📊 KPI Queries
 
