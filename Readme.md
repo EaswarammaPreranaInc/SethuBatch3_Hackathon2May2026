@@ -16,7 +16,7 @@ The business earns revenue through:
 - Delivery fees charged to customers
 - Promotional offer subsidies shared between the platform and restaurants
 
-**Your Role**
+## Your Role
 
 You are a Data Engineering intern at QuickBite India. The operations team has been storing all transactional data in a MySQL OLTP (Online Transaction Processing) database. Your job is to:
 
@@ -26,7 +26,7 @@ You are a Data Engineering intern at QuickBite India. The operations team has be
 4. Compute KPIs and generate business insights  
 5. Present findings to a mock business stakeholder  
 
-Pre-requistes :
+## Pre-requistes :
 
 | Task | What to Do                                                                                                     |
 | ---- | -------------------------------------------------------------------------------------------------------------- |
@@ -36,6 +36,16 @@ Pre-requistes :
 | 0.4  | Run SHOW TABLES; and DESCRIBE customers; to confirm access                                                     |
 | 0.5  | Run SELECT COUNT(*) FROM orders; — verify you see ~700,000 rows                                                |
 
-List of steps :
 
 
+## Project Milestones
+
+| Milestone        | Task Description                                                                 | Sub-Tasks |
+|-----------------|----------------------------------------------------------------------------------|----------|
+| Data Modelling  | Data Exploration - Understand what data you have before you clean it.           | - Row count for every OLTP table<br>- Identify nullable columns and compute null rates<br>- Find data cleansing/transformation issues using SQL queries |
+| Data Modelling  | Business performance indicators on OLTP                                          | - Run SQL queries directly on `quickbite_oltp` to answer business questions |
+| Data Modelling  | Build the OLAP Schema                                                            | - Facts and dimension table creation |
+| Data Ingestion  | Data Cleaning - Apply cleaning rules and produce clean tables                    | - Clean customers table: phone, gender, city, DOB<br>- Clean restaurants table: city case |
+| Data Ingestion  | Write pandas code to transfer data into OLAP/data warehouse tables              | - Develop ETL scripts using pandas |
+| Insights        | Insights & Visualisation using OLAP schema                                       | - Identify top 3 cities by repeat customer rate<br>- Calculate month-over-month revenue growth |
+| Presentation    | Presentation                                                                     | - Prepare final presentation/report |
