@@ -34,7 +34,6 @@ You are a Data Engineering intern at QuickBite India. The operations team has be
 | 0.2  | Install Python packages: pip install mysql-connector-python pandas sqlalchemy pymysql matplotlib seaborn faker |
 | 0.3  | Connect to the pre-loaded quickbite_oltp database using MySQL Workbench                                        |
 | 0.4  | Run SHOW TABLES; and DESCRIBE customers; to confirm access                                                     |
-| 0.5  | Run SELECT COUNT(*) FROM orders; — verify you see ~700,000 rows                                                |
 
 
 
